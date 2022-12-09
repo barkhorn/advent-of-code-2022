@@ -1,31 +1,29 @@
 
-def is_visible(grid, x, y):
-    if x == 0 or y == 0:
-        return True
-    if x == len(grid[0]) - 1:
-        return True
-    if y == len(grid) - 1:
-        return True
-    height = grid[y][x]
-    from_left_side = [grid[y][i] < height for i in range(0, x)]
-    from_right_side = [grid[y][i] < height for i in range(x + 1, len(grid[0]))]
-    from_top_side = [grid[i][x] < height for i in range(0, y)]
-    from_bottom_side = [grid[i][x] < height for i in range(y + 1, len(grid))]
+def is_visible(g, x, y):
+    # edges are always visible, but code not needed as all([]) == True
+    # if x == 0 or y == 0 or (x == len(g[0]) - 1) or (y == len(g) - 1):
+    #    return True
+    height = g[y][x]
+    from_left = (g[y][i] < height for i in range(0, x))
+    from_right = (g[y][i] < height for i in range(x + 1, len(g[0])))
+    from_top = (g[i][x] < height for i in range(0, y))
+    from_bottom = (g[i][x] < height for i in range(y + 1, len(g)))
     return any([
-        all(from_left_side),
-        all(from_right_side),
-        all(from_top_side),
-        all(from_bottom_side)
+        all(from_left),
+        all(from_right),
+        all(from_top),
+        all(from_bottom)
     ])
 
 
 def score(g, x, y):
-    if x == 0 or y == 0:
-        return 0
-    if x == len(g[0]) - 1:
-        return 0
-    if y == len(g) - 1:
-        return 0
+    # optimisation, not really needed
+    # if x == 0 or y == 0:
+    #     return 0
+    # if x == len(g[0]) - 1:
+    #     return 0
+    # if y == len(g) - 1:
+    #     return 0
     s_left = 1
     while x - s_left > 0 and g[y][x - s_left] < g[y][x]:
         s_left += 1
