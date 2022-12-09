@@ -28,14 +28,8 @@ def apply_moves(moves: list[str], start: tuple[int, int] = (0, 0)):
         dx = hx - tx
         dy = hy - ty
         if abs(dx) > 1 or abs(dy) > 1:  # need to move tail
-            if dx != 0 and dy != 0:  # diagonal
-                tx = tx + (1 if dx > 0 else -1)
-                ty = ty + (1 if dy > 0 else -1)
-            else:  # only x or y move
-                if dx != 0:
-                    tx = tx + (1 if dx > 0 else -1)
-                if dy != 0:
-                    ty = ty + (1 if dy > 0 else -1)
+            tx = tx + (1 if dx > 0 else -1 if dx < 0 else 0)
+            ty = ty + (1 if dy > 0 else -1 if dy < 0 else 0)
         visited.add((tx, ty))
         if PRINT_MOVES:
             print_grid(visited, hx, hy, tx, ty, draw_visited=False)
