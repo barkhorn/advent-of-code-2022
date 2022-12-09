@@ -1,23 +1,3 @@
-PRINT_MOVES = False
-
-
-def print_grid(visited, hx=0, hy=0, knots=None, draw_visited=True):
-    size = max(max(x, y) for x, y in visited) + 1
-    for y in range(size, -size, -1):
-        for x in range(-size, size):
-            c = '.'
-            if draw_visited and (x, y) in visited:
-                c = '#'
-            if x == 0 and y == 0:
-                c = 's'
-            for k_idx in range(len(knots)):
-                if (x, y) == knots[k_idx]:
-                    c = str(k_idx + 1)
-            if hx == x and hy == y:
-                c = 'H'
-            print(c, end='')
-        print()
-
 
 def apply_moves(moves: list[str], start: tuple[int, int] = (0, 0)):
     hx, hy = start
@@ -39,9 +19,6 @@ def apply_moves(moves: list[str], start: tuple[int, int] = (0, 0)):
             _hx = tx  # advance the chain. current tail becomes the head for the next tail
             _hy = ty
         visited.add(knots[-1])
-        if PRINT_MOVES:
-            print_grid(visited, hx, hy, knots, draw_visited=False)
-            print()
 
     for move in moves:
         match move.strip().split():
@@ -69,5 +46,4 @@ if __name__ == '__main__':
     with open("day09.txt") as f:
         data = f.readlines()
     tail_visited = apply_moves(data)
-    print_grid(tail_visited, -1, -1, knots=[])
     print(len(tail_visited))
