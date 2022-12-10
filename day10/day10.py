@@ -24,8 +24,6 @@ def run_simulation(lines: list[str]):
                 tick()
                 tick()
                 x += int(i)
-    # for _ in range(clock, max(measuring_points) + 1):
-    #     tick()
 
 
 if __name__ == '__main__':
